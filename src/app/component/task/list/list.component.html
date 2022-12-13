@@ -1,0 +1,42 @@
+<br>
+<div>
+    Filter: 
+    <form [formGroup]="filterForm">
+            <label  for="assigneeId">Assignee: </label>
+            <select id="assigneeId" formControlName="assigneeId">
+                <option *ngFor="let u of users" [value] = "u.id">{{u.name}}</option>
+            </select>
+            <label style="margin-left: 10px;" for="completed">Completed: </label>
+            <input id="completed" type="checkbox" formControlName="completed">
+            
+    </form>
+</div>
+<span *ngIf = "isLoading">Loading...</span>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Assignee</th>
+            <th>Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let t of tasks">
+            <td>
+                {{t.id}}
+            </td>
+            <td>
+                <a [routerLink]="['/task', t.id]">{{t.description}}</a>
+            </td>
+            <td>
+                {{t.assignee}}
+            </td>
+            <td>
+                {{t.completed ? 'Done' : ''}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<button (click) = "refresh()">Refresh</button>
